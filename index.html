@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>メモ</title>
+</head>
+
+<body>
+    <input type="text" id="writeMemo" value="" />
+    <input type="button" value="save" onclick="saveMemo()" />
+    <!-- 1<input type="button" value="load" onclick="loadMemo()" /> -->
+    <hr>
+    <div>
+        メモ記録領域
+    </div>
+    <p id="outputMemo"></p>
+</body>
+
+<script>
+    // localStorage.setItem("memoCount", 0);
+    function saveMemo() {
+        let writeMemo = document.getElementById('writeMemo');
+        let memoCount = parseInt(localStorage.getItem("memoCount"),10);
+        if (!memoCount)
+            memoCount = 0;
+        localStorage.setItem(`writeMemo${memoCount}`, writeMemo.value);
+        console.log(localStorage);
+        localStorage.setItem("memoCount", memoCount + 1);
+        outputMemo.innerHTML += `<p>${writeMemo.value}</p>`;
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let outputMemo = document.getElementById('outputMemo');
+        let memoCount = parseInt(localStorage.getItem("memoCount"),10);
+        let count = 0;
+        while (count < memoCount) {
+            console.log(localStorage);
+            outputMemo.innerHTML += `<p>${localStorage.getItem(`writeMemo${count}`)}</p>`;
+            count++;
+        }
+        console.log(memoCount);
+    });
+</script>
+
+</html>
